@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import { GetCookie } from '../utils/cookie'
+import { GetCookie } from '../utils/cookie.js'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -9,9 +9,55 @@ const router = createRouter({
       path: '/',
       name: 'home',
       meta: {
-        auth: true
+        auth: false
       },
-      component: HomeView
+      component: HomeView,
+      children: [
+        {
+          path: '/bucket',
+          name: 'bucket',
+          meta: {
+            auth: false
+          },
+          component: () => import('../views/BucketView.vue'),
+        },
+        {
+          path: '/add-bucket',
+          meta: {
+            auth: false
+          },
+          component: () => import('../views/AddBucketView.vue')
+        },
+        {
+          path: '/bucket/:bucketName/admin',
+          name: 'bucketManage',
+          meta: {
+            auth: false
+          },
+            component: () => import('../views/BucketAdminView.vue'),
+          redirect:  to => {
+            return {
+              path: `/bucket/${to.params.bucketName}/admin/summary`
+            };
+          },
+          children: [
+            {
+              path: '/bucket/:bucketName/admin/summary',
+              meta: {
+                auth: false
+              },
+                component: () => import('../views/BucketAdminSummaryView.vue')
+            }
+          ]
+        },
+        {
+          path: '/browser',
+          meta: {
+            auth: false
+          },
+          component: () => import('../views/BrowserView.vue')
+        }
+      ]
     },
     {
       path: '/login',

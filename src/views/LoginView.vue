@@ -1,6 +1,9 @@
 <script setup>
 import loginBackground from '@/assets/login_background.png'
+
 import {reactive} from "vue";
+import {useUserStore} from "@/stores/user.js";
+import router from "@/router/index.js";
 
 const form = reactive({
   username: '',
@@ -9,7 +12,13 @@ const form = reactive({
 })
 
 const onSubmit = () => {
-  console.log(form)
+  let succ = useUserStore().login({
+    username: form.username,
+    password: form.password
+  })
+  if (succ) {
+    router.push('/')
+  }
 }
 
 </script>

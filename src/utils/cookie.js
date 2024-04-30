@@ -1,5 +1,3 @@
-
-
 export function GetCookie(name) {
     return document.cookie.split(';').forEach((cookie) => {
         if (cookie.includes(name)) {

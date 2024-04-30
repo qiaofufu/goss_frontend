@@ -1,18 +1,11 @@
-import {APIInstance} from "@/api/api.js";
-import {GetCookie} from "@/utils/cookie.js";
+import request from '@/utils/request'
 
-export class UserAPI {
-    Login(username, password) {
-        APIInstance.post('/login', {
-            username: username,
-            password: password
-        }).then(response => {
-            console.log(response.data);
-        }).catch(error => {
-            console.log(error);
-        });
-    }
-
-    GetUserInfo() {
-    }
+export function Login(param) {
+    return request(
+        {
+            url: '/user/login',
+            method: 'post',
+            data: param
+        }
+    )
 }
