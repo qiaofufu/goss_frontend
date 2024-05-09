@@ -1,6 +1,10 @@
 <script setup>
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 const handleRowClick = (row) => {
-  console.log(row)
+  console.log(row.name)
+  router.push({name:"bucketBrowser", params: {bucketName:row.name}})
 }
 const data = [
   {
@@ -33,7 +37,11 @@ const data = [
       <el-row>
         <div class="table-box">
           <el-table :data="data" width="80%" height="600px" @row-click="handleRowClick">
-            <el-table-column prop="name" label="Bucket Name"></el-table-column>
+            <el-table-column prop="name" label="Bucket Name">
+              <template #default="scope">
+                <el-icon style="margin-right: 5px"><Files /></el-icon><span>{{scope.row.name}}</span>
+              </template>
+            </el-table-column>
             <el-table-column prop="objects" label="Objects"></el-table-column>
             <el-table-column prop="size" label="Size"></el-table-column>
             <el-table-column prop="access" label="Access"></el-table-column>

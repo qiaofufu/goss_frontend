@@ -2,6 +2,7 @@
 
 import {computed} from "vue";
 import {useRouter} from "vue-router";
+import { convertByteSize } from '@/utils/dataconvert.js'
 
 const props = defineProps({
   data: {
@@ -26,11 +27,7 @@ const handleManage = () => {
 
 const Usage = computed(() => {
   let size = Number(props.data.size);
-  if (size === 0) return '0 Bytes';
-  const k = 1024;
-  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-  const i = Math.floor(Math.log(size) / Math.log(k));
-  return parseFloat((size / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  return convertByteSize(size)
 })
 
 const Access = computed(() => {

@@ -55,7 +55,23 @@ const router = createRouter({
           meta: {
             auth: false
           },
-          component: () => import('../views/BrowserView.vue')
+          children: [
+            {
+              path: '/browser',
+              meta: {
+                auth: false
+              },
+              component: () => import('../views/BrowserView.vue'),
+            },
+            {
+              path: '/browser/:bucketName',
+              name: 'bucketBrowser',
+              meta: {
+                auth: false
+              },
+              component: () => import("../views/BrowserBucket.vue")
+            }
+          ]
         }
       ]
     },

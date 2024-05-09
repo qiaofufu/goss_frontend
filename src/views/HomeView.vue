@@ -5,19 +5,23 @@ import {ref} from "vue";
 const menuItems = [
   {
     index: '1',
-    title: 'Index'
+    title: 'Index',
+    icon: 'House'
   },
   {
     index: '2',
-    title: 'Bucket'
+    title: 'Bucket',
+    icon: 'MessageBox'
   },
   {
     index: '3',
-    title: 'Access'
+    title: 'Access',
+    icon: 'View'
   },
   {
     index: '4',
-    title: 'Object Browser'
+    title: 'Object Browser',
+    icon: 'Grid'
   }
 ]
 
@@ -58,7 +62,7 @@ function handleSelect(index) {
           text-color="#fff"
           active-text-color="#ffd04b"
         >
-          <el-menu-item v-for="item in menuItems" :index="item.index">{{item.title}}</el-menu-item>
+          <el-menu-item v-for="item in menuItems" :index="item.index"> <component class="icon" :is="item.icon"/>{{item.title}}</el-menu-item>
         </el-menu>
       </el-aside>
       <el-container>
@@ -105,5 +109,10 @@ function handleSelect(index) {
 .header-label {
   font-size: 32px;
   font-weight: bold;
+}
+.icon {
+  width: 26px;
+  height: 26px;
+  margin-right: 10px;
 }
 </style>
