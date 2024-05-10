@@ -2,11 +2,11 @@ import {ref} from "vue";
 import {CreateBuckets, ListBuckets} from "@/api/buckets.js";
 import {defineStore} from "pinia";
 
-export const useBucketsStore = defineStore('buckets',  {
-    state: ()=>{
-            return {
-                buckets: ref([])
-            }
+export const useBucketsStore = defineStore('buckets', {
+    state: () => {
+        return {
+            buckets: ref([])
+        }
     },
     getters: {
         bucketList() {

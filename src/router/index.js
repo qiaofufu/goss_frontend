@@ -13,7 +13,15 @@ const router = createRouter({
       },
       component: HomeView,
       children: [
-        {
+          {
+              name: 'dashboard',
+              path: '/dashboard',
+              meta: {
+                  auth: true
+              },
+              component: () => import('../views/DashboardView.vue')
+          },
+          {
           path: '/bucket',
           name: 'bucket',
           meta: {
@@ -88,18 +96,18 @@ const router = createRouter({
 
 // 路由守卫
 router.beforeEach((to, from, next) => {
-  if (to.meta.auth) {
-    if (GetCookie('websession')) {
-      console.log('已登录')
-      next()
+    if (to.meta.auth) {
+        if (GetCookie('websession')) {
+            console.log('已登录')
+            next()
+        } else {
+            console.log('未登录')
+            next({name: 'login'})
+        }
     } else {
-      console.log('未登录')
-      next({ name: 'login' })
+        console.log('不需要登录')
+        next()
     }
-  } else {
-    console.log('不需要登录')
-    next()
-  }
 })
 
 export default router

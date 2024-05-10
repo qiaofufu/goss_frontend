@@ -14,7 +14,7 @@ export function ListBuckets() {
     return request(
         {
             url: '/buckets',
-            method: 'get'
+            method: 'get',
         }
     )
 }

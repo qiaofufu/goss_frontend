@@ -24,13 +24,14 @@ onMounted(() => {
         <el-button type="primary" @click="handleCreateBucket">Create Bucket</el-button>
       </div>
     </div>
-    <BucketCard :data="data"  :key="data.name" v-for="data in bucketsStore.bucketList" />
+    <BucketCard :data="data" :key="data.name" v-for="data in bucketsStore.bucketList"/>
   </main>
 </template>
 
 <style scoped>
 .bucket-search {
 }
+
 .tool-container {
   display: flex;
   justify-content: space-between;

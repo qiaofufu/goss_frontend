@@ -5,6 +5,7 @@ export function convertTime(timestamp) {
 }
 
 export function convertByteSize(size) {
+  size = Number(size)
   if (size === 0) return '0 Bytes';
   const k = 1024;
   const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];

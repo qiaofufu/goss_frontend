@@ -30,20 +30,20 @@ const activeTitle = ref('Index')
 function handleSelect(index) {
   switch (index) {
     case '1':
-      router.push('/')
-        activeTitle.value = 'Index'
+      router.push('/dashboard')
+      activeTitle.value = 'Dashboard'
       break
     case '2':
       router.push('/bucket')
-        activeTitle.value = 'Bucket'
+      activeTitle.value = 'Bucket'
       break
     case '3':
       router.push('/access')
-        activeTitle.value = 'Access'
+      activeTitle.value = 'Access'
       break
     case '4':
       router.push("/browser")
-        activeTitle.value = 'Object Browser'
+      activeTitle.value = 'Object Browser'
   }
 }
 </script>
@@ -55,14 +55,14 @@ function handleSelect(index) {
         <h2 class="menu-icon">Tiny OSS</h2>
         <el-divider/>
         <el-menu
-          default-active="1"
-          class="menu"
-          @select="handleSelect"
-          background-color="#545c64"
-          text-color="#fff"
-          active-text-color="#ffd04b"
+            default-active="1"
+            class="menu"
+            @select="handleSelect"
+            background-color="#545c64"
+            text-color="#fff"
+            active-text-color="#ffd04b"
         >
-          <el-menu-item v-for="item in menuItems" :index="item.index"> <component class="icon" :is="item.icon"/>{{item.title}}</el-menu-item>
+          <el-menu-item :key="item.index" v-for="item in menuItems" :index="item.index"> <component class="icon" :is="item.icon"/>{{item.title}}</el-menu-item>
         </el-menu>
       </el-aside>
       <el-container>

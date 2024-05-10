@@ -1,8 +1,9 @@
 import {GetCookie} from "@/utils/cookie.js";
 import axios from 'axios';
 import {ElMessage} from "element-plus";
+
 const instance = axios.create({
-    baseURL: 'http://localhost:8000/v1',
+    baseURL: 'http://192.168.22.150:8080/api',
     timeout: 3000,
     headers: {
         'Content-Type': 'application/json',
@@ -27,14 +28,18 @@ instance.interceptors.request.use(
 // response interceptor
 instance.interceptors.response.use(
     response => {
-       if (response.data.status === 1) {
-        ElMessage.warning(response.data.msg);
-        return Promise.reject(response.data);
-       }
+        if (response.data.status === 1) {
+            ElMessage.warning(response.data.msg);
+            return Promise.reject(response.data);
+        }
         return response.data;
 
     },
     error => {
+        if (error.response.status === 401) {
+            ElMessage.warning("请先登录");
+            window.location.href = "/login";
+        }
         return Promise.reject(error);
     });
 
