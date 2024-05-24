@@ -1,5 +1,5 @@
 <script setup>
-import {Search} from '@element-plus/icons-vue'
+import { Search } from '@element-plus/icons-vue'
 </script>
 
 <template>
@@ -9,7 +9,7 @@ import {Search} from '@element-plus/icons-vue'
         <el-input placeholder="Search buckets" v-model="searchContent">
           <template #prefix>
             <el-icon>
-              <Search/>
+              <Search />
             </el-icon>
           </template>
         </el-input>

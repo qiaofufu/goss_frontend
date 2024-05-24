@@ -1,31 +1,22 @@
 <script setup>
 import { useRouter } from 'vue-router'
+import { useBucketsStore } from '@/stores/buckets.js'
+import { onMounted } from 'vue'
+import { convertByteSize, convertRWPermission } from '../utils/dataconvert.js'
 
 const router = useRouter()
 const handleRowClick = (row) => {
   console.log(row.name)
-  router.push({name:"bucketBrowser", params: {bucketName:row.name}})
+  router.push({ name: 'bucketBrowser', params: { bucketName: row.name } })
 }
-const data = [
-  {
-    name: "bucket1",
-    objects: 10,
-    size: 1323266,
-    access: "R/W"
-  },
-  {
-    name: "bucket2",
-    objects: 20,
-    size: 1323266,
-    access: "R"
-  },
-  {
-    name: "bucket3",
-    objects: 30,
-    size: 1323266,
-    access: "W"
-  }
-]
+
+const bucketStore = useBucketsStore()
+
+onMounted(() => {
+  const res = bucketStore.fetchBucketList()
+  console.log(res)
+})
+
 </script>
 
 <template>
@@ -36,15 +27,26 @@ const data = [
       </el-row>
       <el-row>
         <div class="table-box">
-          <el-table :data="data" width="80%" height="600px" @row-click="handleRowClick">
+          <el-table :data="bucketStore.buckets" width="80%" height="600px" @row-click="handleRowClick">
             <el-table-column prop="name" label="Bucket Name">
               <template #default="scope">
-                <el-icon style="margin-right: 5px"><Files /></el-icon><span>{{scope.row.name}}</span>
+                <el-icon style="margin-right: 5px">
+                  <Files />
+                </el-icon>
+                <span>{{ scope.row.name }}</span>
               </template>
             </el-table-column>
             <el-table-column prop="objects" label="Objects"></el-table-column>
-            <el-table-column prop="size" label="Size"></el-table-column>
-            <el-table-column prop="access" label="Access"></el-table-column>
+            <el-table-column prop="used_bytes" label="Size">
+              <template #default="scope">
+                <span>{{ convertByteSize(scope.row.used_bytes) }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="rw_policy" label="Access">
+              <template #default="scope">
+                <span>{{ convertRWPermission(scope.row.rw_policy) }}</span>
+              </template>
+            </el-table-column>
           </el-table>
         </div>
 

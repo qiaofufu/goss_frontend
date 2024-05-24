@@ -1,8 +1,8 @@
 <script setup>
 
-import {computed} from "vue";
-import {useRouter} from "vue-router";
-import { convertByteSize } from '@/utils/dataconvert.js'
+import { computed } from 'vue'
+import { useRouter } from 'vue-router'
+import { convertByteSize, convertRWPermission } from '@/utils/dataconvert.js'
 
 const props = defineProps({
   data: {
@@ -19,35 +19,29 @@ const props = defineProps({
   }
 })
 
-console.log(props.data)
 
-const router = useRouter();
+const router = useRouter()
 
 const handleManage = () => {
-  router.push({name: 'bucketManage', params: {bucketName: props.data.name}})
+  router.push({ name: 'bucketManage', params: { bucketName: props.data.name } })
 }
 
 const handleBrowse = () => {
-  router.push({name: 'bucketBrowser', params: {bucketName: props.data.name}})
+  router.push({ name: 'bucketBrowser', params: { bucketName: props.data.name } })
 }
 
 const Usage = computed(() => {
-  let size = Number(props.data.used_bytes);
+  let size = Number(props.data.used_bytes)
   return convertByteSize(size)
 })
 
 const Access = computed(() => {
-  let rwPolicy = props.data.rw_policy;
-  console.log(rwPolicy)
-  if (rwPolicy === 1) return 'R';
-  if (rwPolicy === 2) return 'W';
-  if (rwPolicy === 3) return 'R/W';
-  return 'Unknown';
+  return convertRWPermission(props.data.rw_policy)
 })
 
 const CreatedAt = computed(() => {
-  let date = new Date(Number(props.data.created_at));
-  return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+  let date = new Date(Number(props.data.created_at))
+  return date.toLocaleDateString() + ' ' + date.toLocaleTimeString()
 })
 
 </script>
@@ -70,12 +64,12 @@ const CreatedAt = computed(() => {
           <el-col class="box-header-btn-group-container" :span="12">
             <el-button><span class="btn-label" @click="handleManage">Manage</span>
               <el-icon>
-                <Setting/>
+                <Setting />
               </el-icon>
             </el-button>
             <el-button type="primary" @click="handleBrowse"><span class="btn-label">Browse</span>
               <el-icon>
-                <Right/>
+                <Right />
               </el-icon>
             </el-button>
           </el-col>
@@ -95,7 +89,7 @@ const CreatedAt = computed(() => {
         <div class="box-body-item">
           <div class="label-box">
             <el-icon size="18px">
-              <Odometer/>
+              <Odometer />
             </el-icon>
             <span class="label-text">Usage</span></div>
           <div class="label">{{ Usage }}</div>
@@ -103,7 +97,7 @@ const CreatedAt = computed(() => {
         <div class="box-body-item">
           <div class="label-box">
             <el-icon size="18px">
-              <Files/>
+              <Files />
             </el-icon>
             <span class="label-text">Objects</span></div>
           <div class="label">{{ props.data.objects }}</div>

@@ -1,6 +1,6 @@
 <script setup>
 import router from '@/router/index.js'
-import {ref} from "vue";
+import { ref } from 'vue'
 
 const menuItems = [
   {
@@ -42,7 +42,7 @@ function handleSelect(index) {
       activeTitle.value = 'Access'
       break
     case '4':
-      router.push("/browser")
+      router.push('/browser')
       activeTitle.value = 'Object Browser'
   }
 }
@@ -53,16 +53,19 @@ function handleSelect(index) {
     <el-container>
       <el-aside width="200px" class="menu-container">
         <h2 class="menu-icon">Tiny OSS</h2>
-        <el-divider/>
+        <el-divider />
         <el-menu
-            default-active="1"
-            class="menu"
-            @select="handleSelect"
-            background-color="#545c64"
-            text-color="#fff"
-            active-text-color="#ffd04b"
+          default-active="1"
+          class="menu"
+          @select="handleSelect"
+          background-color="#545c64"
+          text-color="#fff"
+          active-text-color="#ffd04b"
         >
-          <el-menu-item :key="item.index" v-for="item in menuItems" :index="item.index"> <component class="icon" :is="item.icon"/>{{item.title}}</el-menu-item>
+          <el-menu-item :key="item.index" v-for="item in menuItems" :index="item.index">
+            <component class="icon" :is="item.icon" />
+            {{ item.title }}
+          </el-menu-item>
         </el-menu>
       </el-aside>
       <el-container>
@@ -73,9 +76,9 @@ function handleSelect(index) {
             </h1>
           </div>
         </el-header>
-        <el-divider style="margin-bottom: 0"/>
+        <el-divider style="margin-bottom: 0" />
         <el-main>
-          <RouterView/>
+          <RouterView />
         </el-main>
       </el-container>
     </el-container>
@@ -89,12 +92,14 @@ function handleSelect(index) {
   left: 0;
   background-color: #2c3e50;
 }
+
 .menu-icon {
   font-size: 24px;
   text-align: center;
   margin: 20px 0;
   color: rgb(255, 255, 255);
 }
+
 .menu {
   overflow-y: auto;
   height: calc(100vh - 200px);
@@ -103,13 +108,16 @@ function handleSelect(index) {
   margin: 0;
   width: 100%;
 }
+
 .header {
   padding: 20px 0;
 }
+
 .header-label {
   font-size: 32px;
   font-weight: bold;
 }
+
 .icon {
   width: 26px;
   height: 26px;

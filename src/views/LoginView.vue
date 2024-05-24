@@ -1,9 +1,9 @@
 <script setup>
 import loginBackground from '@/assets/login_background.png'
 
-import {reactive} from "vue";
-import {useUserStore} from "@/stores/user.js";
-import {useRouter} from "vue-router";
+import { reactive } from 'vue'
+import { useUserStore } from '@/stores/user.js'
+import { useRouter } from 'vue-router'
 
 const form = reactive({
   username: '',
@@ -12,13 +12,12 @@ const form = reactive({
 })
 
 const router = useRouter()
-
+const userStore = useUserStore()
 const onSubmit = () => {
-  let succ = useUserStore().login({
+  let succ = userStore.login({
     username: form.username,
     password: form.password
   })
-  console.log(succ)
   if (succ) {
     router.push('/')
   }
@@ -28,17 +27,17 @@ const onSubmit = () => {
 
 <template>
   <el-container class="login-container">
-    <img :src="loginBackground" class="background-image"/>
+    <img :src="loginBackground" class="background-image" />
     <el-card class="login-view" shadow="hover">
       <template #header>
         <h2>登录</h2>
       </template>
       <el-form :model="form" label-width="auto" label-position="left">
         <el-form-item label="用户名">
-          <el-input v-model="form.username"/>
+          <el-input v-model="form.username" />
         </el-form-item>
         <el-form-item label="密码">
-          <el-input type="password" v-model="form.password" show-password/>
+          <el-input type="password" v-model="form.password" show-password />
         </el-form-item>
         <el-form-item>
           <el-checkbox v-model="form.remember">记住密码</el-checkbox>

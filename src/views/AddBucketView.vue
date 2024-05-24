@@ -1,14 +1,14 @@
 <script setup>
-import {reactive} from "vue";
-import {useBucketsStore} from "@/stores/buckets.js";
-import router from "@/router/index.js";
-import {ElMessage} from "element-plus";
+import { reactive } from 'vue'
+import { useBucketsStore } from '@/stores/buckets.js'
+import router from '@/router/index.js'
+import { ElMessage } from 'element-plus'
 
 const form = reactive({
   name: '',
   quota: {
     size: 0,
-    unit: "GB"
+    unit: 'GB'
   },
   version: {
     enable: false
@@ -26,7 +26,7 @@ const handleCreateBucket = () => {
     enable_versioning: form.version.enable,
     enable_object_lock: form.locking
   }).then((data) => {
-    ElMessage.success(`${data.name} created successfully`)
+    ElMessage.success(data.bucket + ` created successfully`)
     router.back()
   }).catch((error) => {
     console.log(error)

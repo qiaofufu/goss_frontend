@@ -1,13 +1,15 @@
 <script setup>
-import {useRoute} from "vue-router";
-import {reactive} from "vue";
+import { useRoute } from 'vue-router'
+import { reactive } from 'vue'
+import { DeleteBucket } from '@/api/buckets.js'
 
-const route = useRoute();
+const route = useRoute()
 const summary = reactive({
   bucketName: route.params.bucketName,
   access: 'Public',
   versioning: 'Disabled',
   locking: 'Disabled',
+  
   quota: '1GB',
   rwAccess: {
     read: true,
@@ -21,8 +23,17 @@ const menuItems = [
   {
     index: '1',
     title: 'Summary'
-  },
+  }
 ]
+
+const handleDeleteBucket = () => {
+  try {
+    console.log('delete', summary.bucketName)
+    DeleteBucket({ bucketName: summary.bucketName })
+  } catch (e) {
+    console.log(e)
+  }
+}
 
 
 </script>
@@ -48,35 +59,35 @@ const menuItems = [
         <el-button type="danger" @click="handleDeleteBucket">Delete Bucket
           <template #icon>
             <el-icon>
-              <DeleteFilled/>
+              <DeleteFilled />
             </el-icon>
           </template>
         </el-button>
         <el-button type="info">Refresh
           <template #icon>
             <el-icon>
-              <RefreshRight/>
+              <RefreshRight />
             </el-icon>
           </template>
         </el-button>
       </div>
     </el-header>
-    <el-divider style="margin: 5px"/>
+    <el-divider style="margin: 5px" />
     <el-container style="border: 1px solid rgb(234,234,234)">
       <el-aside>
         <el-menu
-            default-active="1"
-            class="menu"
-            @select="handleSelect"
-            background-color="rgb(248,248,248)"
-            text-color="#fff"
-            active-text-color="#ffd04b"
+          default-active="1"
+          class="menu"
+          @select="handleSelect"
+          background-color="rgb(248,248,248)"
+          text-color="#fff"
+          active-text-color="#ffd04b"
         >
           <el-menu-item v-for="item in menuItems" :index="item.index" :key="item.index">{{ item.title }}</el-menu-item>
         </el-menu>
       </el-aside>
       <el-main>
-        <RouterView/>
+        <RouterView />
       </el-main>
     </el-container>
   </el-container>
